@@ -1,7 +1,15 @@
-import '../styles/globals.css'
+import { TreasureTrailsProvider } from '@/components/contexts/TreasureTrailsContext';
+import { AppProvider } from '@/components/contexts/AppContext';
+import '@/styles/globals.css';
 
-function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+export default function App({ Component, pageProps }) {
+  return (
+    <AppProvider>
+      <TreasureTrailsProvider>
+        <div>
+          <Component {...pageProps} />
+        </div>
+      </TreasureTrailsProvider>
+    </AppProvider>
+  );
 }
-
-export default MyApp
