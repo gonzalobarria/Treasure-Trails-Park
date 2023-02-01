@@ -37,6 +37,7 @@ export default function Home() {
     if (data !== '') {
       const theticket = tickets.find((t, i) => i === parseInt(data));
       console.log('theticket', theticket);
+      if (theticket) buyTicket(data);
       setData('');
       setOpenCamera(false);
     }
@@ -54,20 +55,20 @@ export default function Home() {
 
   const buyTicket = async (ticketId) => {
     try {
-      await ttl?.buyTicket(ticketId, { value: utils.parseEther('150') });
+      await ttl?.buyTicket(ticketId, { value: utils.parseEther('0.01') });
     } catch (error) {
       console.log(error);
     }
   };
   const addTicket = async () => {
     try {
-      const name = 'New Ticket';
+      const name = 'Third Ticket';
       const date = new Date();
       date.setHours(date.getHours() + 4);
       console.log('name', name);
       const tx1 = await ttl?.addTicket(
         name,
-        utils.parseEther('150'),
+        utils.parseEther('0.01'),
         date.getTime(),
         50
       );
@@ -98,7 +99,7 @@ export default function Home() {
           <p>
             Get started by editing&nbsp;
             <button onClick={getTickets}>tickets</button>
-            <button onClick={() => buyTicket(1)}>BUY</button>
+            <button onClick={() => buyTicket(2)}>BUY</button>
             <button onClick={addTicket}>ADD</button>
             <button onClick={() => setOpenCamera(true)}>OPEN</button>
           </p>
@@ -198,7 +199,7 @@ export default function Home() {
               with&nbsp;Vercel.
             </p>
             <QRCode
-              value="1"
+              value="2"
               logoImage="https://www.gonzalobarria.com/images/logo-gb.jpg"
               eyeRadius={[
                 {
