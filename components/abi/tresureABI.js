@@ -1,6 +1,17 @@
 export const treasureTrailsABI = [
   {
-    inputs: [],
+    inputs: [
+      {
+        internalType: 'string',
+        name: '_parkName',
+        type: 'string',
+      },
+      {
+        internalType: 'int256',
+        name: '_diffTZ',
+        type: 'int256',
+      },
+    ],
     stateMutability: 'nonpayable',
     type: 'constructor',
   },
@@ -62,94 +73,6 @@ export const treasureTrailsABI = [
     type: 'event',
   },
   {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: 'bytes32',
-        name: 'role',
-        type: 'bytes32',
-      },
-      {
-        indexed: true,
-        internalType: 'bytes32',
-        name: 'previousAdminRole',
-        type: 'bytes32',
-      },
-      {
-        indexed: true,
-        internalType: 'bytes32',
-        name: 'newAdminRole',
-        type: 'bytes32',
-      },
-    ],
-    name: 'RoleAdminChanged',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: 'bytes32',
-        name: 'role',
-        type: 'bytes32',
-      },
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'account',
-        type: 'address',
-      },
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'sender',
-        type: 'address',
-      },
-    ],
-    name: 'RoleGranted',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: 'bytes32',
-        name: 'role',
-        type: 'bytes32',
-      },
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'account',
-        type: 'address',
-      },
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'sender',
-        type: 'address',
-      },
-    ],
-    name: 'RoleRevoked',
-    type: 'event',
-  },
-  {
-    inputs: [],
-    name: 'DEFAULT_ADMIN_ROLE',
-    outputs: [
-      {
-        internalType: 'bytes32',
-        name: '',
-        type: 'bytes32',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
     inputs: [
       {
         internalType: 'uint256',
@@ -160,7 +83,7 @@ export const treasureTrailsABI = [
     name: 'activityTypes',
     outputs: [
       {
-        internalType: 'enum TreasureTrailsXP.ActivityType',
+        internalType: 'enum TreasureTrailsXPFactory.ActivityType',
         name: '',
         type: 'uint8',
       },
@@ -196,12 +119,38 @@ export const treasureTrailsABI = [
         type: 'uint256',
       },
       {
-        internalType: 'enum TreasureTrailsXP.ActivityType',
+        internalType: 'enum TreasureTrailsXPFactory.ActivityType',
         name: '_activityType',
         type: 'uint8',
       },
     ],
     name: 'addActivity',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'string',
+        name: '_name',
+        type: 'string',
+      },
+    ],
+    name: 'addRestaurant',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'string',
+        name: '_name',
+        type: 'string',
+      },
+    ],
+    name: 'addStore',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
@@ -220,7 +169,7 @@ export const treasureTrailsABI = [
       },
       {
         internalType: 'uint256',
-        name: '_expiresAt',
+        name: '_durationInDays',
         type: 'uint256',
       },
       {
@@ -230,6 +179,42 @@ export const treasureTrailsABI = [
       },
     ],
     name: 'addTicket',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: '_restaurantIndex',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256[]',
+        name: '_items',
+        type: 'uint256[]',
+      },
+    ],
+    name: 'buyMeals',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: '_storeIndex',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256[]',
+        name: '_items',
+        type: 'uint256[]',
+      },
+    ],
+    name: 'buyProducts',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
@@ -270,24 +255,6 @@ export const treasureTrailsABI = [
   {
     inputs: [
       {
-        internalType: 'string',
-        name: '_gameHash',
-        type: 'string',
-      },
-      {
-        internalType: 'uint256',
-        name: '_amount',
-        type: 'uint256',
-      },
-    ],
-    name: 'drop',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
         internalType: 'uint256',
         name: '_activityIndex',
         type: 'uint256',
@@ -312,8 +279,14 @@ export const treasureTrailsABI = [
     type: 'function',
   },
   {
-    inputs: [],
-    name: 'getActiveChallenges',
+    inputs: [
+      {
+        internalType: 'enum TreasureTrailsXPFactory.ActivityType',
+        name: '_activityType',
+        type: 'uint8',
+      },
+    ],
+    name: 'getActiveActivities',
     outputs: [
       {
         components: [
@@ -348,12 +321,62 @@ export const treasureTrailsABI = [
             type: 'uint256',
           },
           {
-            internalType: 'enum TreasureTrailsXP.ActivityType',
+            internalType: 'enum TreasureTrailsXPFactory.ActivityType',
             name: 'activityType',
             type: 'uint8',
           },
         ],
-        internalType: 'struct TreasureTrailsXP.Activity[]',
+        internalType: 'struct TreasureTrailsXPFactory.Activity[]',
+        name: '',
+        type: 'tuple[]',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'getActivities',
+    outputs: [
+      {
+        components: [
+          {
+            internalType: 'string',
+            name: 'name',
+            type: 'string',
+          },
+          {
+            internalType: 'string',
+            name: 'description',
+            type: 'string',
+          },
+          {
+            internalType: 'uint256',
+            name: 'earnCredits',
+            type: 'uint256',
+          },
+          {
+            internalType: 'uint256',
+            name: 'discountCredits',
+            type: 'uint256',
+          },
+          {
+            internalType: 'bool',
+            name: 'isActive',
+            type: 'bool',
+          },
+          {
+            internalType: 'uint256',
+            name: 'expiresAt',
+            type: 'uint256',
+          },
+          {
+            internalType: 'enum TreasureTrailsXPFactory.ActivityType',
+            name: 'activityType',
+            type: 'uint8',
+          },
+        ],
+        internalType: 'struct TreasureTrailsXPFactory.Activity[]',
         name: '',
         type: 'tuple[]',
       },
@@ -404,12 +427,12 @@ export const treasureTrailsABI = [
             type: 'uint256',
           },
           {
-            internalType: 'enum TreasureTrailsXP.ActivityType',
+            internalType: 'enum TreasureTrailsXPFactory.ActivityType',
             name: 'activityType',
             type: 'uint8',
           },
         ],
-        internalType: 'struct TreasureTrailsXP.Activity',
+        internalType: 'struct TreasureTrailsXPFactory.Activity',
         name: '',
         type: 'tuple',
       },
@@ -469,8 +492,14 @@ export const treasureTrailsABI = [
     type: 'function',
   },
   {
-    inputs: [],
-    name: 'getMyTickets',
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: '_restaurantIndex',
+        type: 'uint256',
+      },
+    ],
+    name: 'getIdsMenuRestaurant',
     outputs: [
       {
         internalType: 'uint256[]',
@@ -484,17 +513,194 @@ export const treasureTrailsABI = [
   {
     inputs: [
       {
-        internalType: 'bytes32',
-        name: 'role',
-        type: 'bytes32',
+        internalType: 'uint256',
+        name: '_storeIndex',
+        type: 'uint256',
       },
     ],
-    name: 'getRoleAdmin',
+    name: 'getIdsProductsStore',
     outputs: [
       {
-        internalType: 'bytes32',
+        internalType: 'uint256[]',
         name: '',
-        type: 'bytes32',
+        type: 'uint256[]',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: '_restaurantIndex',
+        type: 'uint256',
+      },
+    ],
+    name: 'getMenuRestaurant',
+    outputs: [
+      {
+        components: [
+          {
+            internalType: 'string',
+            name: 'name',
+            type: 'string',
+          },
+          {
+            internalType: 'string',
+            name: 'description',
+            type: 'string',
+          },
+          {
+            internalType: 'uint256',
+            name: 'earnCredits',
+            type: 'uint256',
+          },
+          {
+            internalType: 'uint256',
+            name: 'discountCredits',
+            type: 'uint256',
+          },
+          {
+            internalType: 'bool',
+            name: 'isActive',
+            type: 'bool',
+          },
+          {
+            internalType: 'uint256',
+            name: 'expiresAt',
+            type: 'uint256',
+          },
+          {
+            internalType: 'enum TreasureTrailsXPFactory.ActivityType',
+            name: 'activityType',
+            type: 'uint8',
+          },
+        ],
+        internalType: 'struct TreasureTrailsXPFactory.Activity[]',
+        name: '',
+        type: 'tuple[]',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'getMyTickets',
+    outputs: [
+      {
+        components: [
+          {
+            internalType: 'uint256',
+            name: 'ticketIndex',
+            type: 'uint256',
+          },
+          {
+            internalType: 'uint256',
+            name: 'expiresAt',
+            type: 'uint256',
+          },
+        ],
+        internalType: 'struct TreasureTrailsXPFactory.TicketPlayer[]',
+        name: '',
+        type: 'tuple[]',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: '_storeIndex',
+        type: 'uint256',
+      },
+    ],
+    name: 'getProductsStore',
+    outputs: [
+      {
+        components: [
+          {
+            internalType: 'string',
+            name: 'name',
+            type: 'string',
+          },
+          {
+            internalType: 'string',
+            name: 'description',
+            type: 'string',
+          },
+          {
+            internalType: 'uint256',
+            name: 'earnCredits',
+            type: 'uint256',
+          },
+          {
+            internalType: 'uint256',
+            name: 'discountCredits',
+            type: 'uint256',
+          },
+          {
+            internalType: 'bool',
+            name: 'isActive',
+            type: 'bool',
+          },
+          {
+            internalType: 'uint256',
+            name: 'expiresAt',
+            type: 'uint256',
+          },
+          {
+            internalType: 'enum TreasureTrailsXPFactory.ActivityType',
+            name: 'activityType',
+            type: 'uint8',
+          },
+        ],
+        internalType: 'struct TreasureTrailsXPFactory.Activity[]',
+        name: '',
+        type: 'tuple[]',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'getRestaurants',
+    outputs: [
+      {
+        components: [
+          {
+            internalType: 'string',
+            name: 'name',
+            type: 'string',
+          },
+        ],
+        internalType: 'struct TreasureTrailsXPFactory.Restaurant[]',
+        name: '',
+        type: 'tuple[]',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'getStores',
+    outputs: [
+      {
+        components: [
+          {
+            internalType: 'string',
+            name: 'name',
+            type: 'string',
+          },
+        ],
+        internalType: 'struct TreasureTrailsXPFactory.Store[]',
+        name: '',
+        type: 'tuple[]',
       },
     ],
     stateMutability: 'view',
@@ -524,7 +730,7 @@ export const treasureTrailsABI = [
           },
           {
             internalType: 'uint256',
-            name: 'expiresAt',
+            name: 'durationInDays',
             type: 'uint256',
           },
           {
@@ -538,7 +744,7 @@ export const treasureTrailsABI = [
             type: 'bool',
           },
         ],
-        internalType: 'struct TreasureTrailsXP.Ticket',
+        internalType: 'struct TreasureTrailsXPFactory.Ticket',
         name: '',
         type: 'tuple',
       },
@@ -564,7 +770,7 @@ export const treasureTrailsABI = [
           },
           {
             internalType: 'uint256',
-            name: 'expiresAt',
+            name: 'durationInDays',
             type: 'uint256',
           },
           {
@@ -578,51 +784,9 @@ export const treasureTrailsABI = [
             type: 'bool',
           },
         ],
-        internalType: 'struct TreasureTrailsXP.Ticket[]',
+        internalType: 'struct TreasureTrailsXPFactory.Ticket[]',
         name: '',
         type: 'tuple[]',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'bytes32',
-        name: 'role',
-        type: 'bytes32',
-      },
-      {
-        internalType: 'address',
-        name: 'account',
-        type: 'address',
-      },
-    ],
-    name: 'grantRole',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'bytes32',
-        name: 'role',
-        type: 'bytes32',
-      },
-      {
-        internalType: 'address',
-        name: 'account',
-        type: 'address',
-      },
-    ],
-    name: 'hasRole',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool',
       },
     ],
     stateMutability: 'view',
@@ -651,53 +815,17 @@ export const treasureTrailsABI = [
   {
     inputs: [
       {
-        internalType: 'bytes32',
-        name: 'role',
-        type: 'bytes32',
-      },
-      {
-        internalType: 'address',
-        name: 'account',
-        type: 'address',
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
       },
     ],
-    name: 'renounceRole',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'bytes32',
-        name: 'role',
-        type: 'bytes32',
-      },
-      {
-        internalType: 'address',
-        name: 'account',
-        type: 'address',
-      },
-    ],
-    name: 'revokeRole',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'bytes4',
-        name: 'interfaceId',
-        type: 'bytes4',
-      },
-    ],
-    name: 'supportsInterface',
+    name: 'restaurants',
     outputs: [
       {
-        internalType: 'bool',
-        name: '',
-        type: 'bool',
+        internalType: 'string',
+        name: 'name',
+        type: 'string',
       },
     ],
     stateMutability: 'view',
@@ -707,36 +835,52 @@ export const treasureTrailsABI = [
     inputs: [
       {
         internalType: 'uint256',
+        name: '_restaurantIndex',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256[]',
+        name: '_meals',
+        type: 'uint256[]',
+      },
+    ],
+    name: 'setMenuRestaurant',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: '_storeIndex',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256[]',
+        name: '_products',
+        type: 'uint256[]',
+      },
+    ],
+    name: 'setProductsStore',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
         name: '',
         type: 'uint256',
       },
     ],
-    name: 'tickets',
+    name: 'stores',
     outputs: [
       {
         internalType: 'string',
         name: 'name',
         type: 'string',
-      },
-      {
-        internalType: 'uint256',
-        name: 'price',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
-        name: 'expiresAt',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
-        name: 'initialCredits',
-        type: 'uint256',
-      },
-      {
-        internalType: 'bool',
-        name: 'isActive',
-        type: 'bool',
       },
     ],
     stateMutability: 'view',

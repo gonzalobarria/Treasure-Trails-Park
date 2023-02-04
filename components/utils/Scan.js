@@ -5,11 +5,16 @@ import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 const QrReader = dynamic(() => import('react-qr-reader'), { ssr: false });
 
-export default function Scan({ setId }) {
+export default function Scan({ setId, setOpenCamera }) {
   const [selected, setSelected] = useState('environment');
   const [startScan, setStartScan] = useState(false);
   const [loadingScan, setLoadingScan] = useState(false);
   const [data, setData] = useState('');
+
+  useEffect(() => {
+    setStartScan(!startScan);
+    setLoadingScan(false);
+  }, []);
 
   useEffect(() => {
     console.log('data :>> ', data);
@@ -42,13 +47,14 @@ export default function Scan({ setId }) {
       </h2>
 
       <button
-        className="bg-red-50"
+        className=""
         onClick={() => {
           setStartScan(!startScan);
           setLoadingScan(false);
+          setOpenCamera(false);
         }}
       >
-        {startScan ? 'Stop Scan' : 'Start Scan'}
+        Cancel Scan
       </button>
       {startScan && (
         <>
@@ -61,8 +67,8 @@ export default function Scan({ setId }) {
             delay={1000}
             onError={handleError}
             onScan={handleScan}
-            // chooseDeviceId={()=>selected}
-            style={{ width: '300px' }}
+            chooseDeviceId={()=>selected}
+            style={{ width: '500px' }}
           />
         </>
       )}

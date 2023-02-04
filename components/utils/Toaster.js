@@ -19,15 +19,15 @@ export const notify = ({ title, msg, type }) =>
           <HiLightningBolt />
         </div>
         <div className="flex flex-col items-start justify-center ml-4 cursor-default">
-          <h1 className="text-base text-white font-semibold leading-none tracking-wider">
+          <h1 className="text-base font-semibold leading-none tracking-wider text-white">
             {title}
           </h1>
-          <p className="text-sm text-white mt-2 leading-relaxed tracking-wider">
+          <p className="mt-2 text-sm leading-relaxed tracking-wider text-white">
             {msg}
           </p>
         </div>
         <div
-          className="absolute top-2 right-2 cursor-pointer text-lg"
+          className="absolute text-lg cursor-pointer top-2 right-2"
           onClick={() => toast.dismiss(t.id)}
         >
           <MdOutlineClose />

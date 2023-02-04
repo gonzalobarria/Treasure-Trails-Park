@@ -32,9 +32,10 @@ export const AppProvider = ({ children }) => {
     if (!window.ethereum) return;
 
     window.ethereum.on('accountsChanged', async () => {
-      const { acc } = await getAccounts('eth_requestAccounts');
+      const { acc, provider } = await getAccounts('eth_requestAccounts');
 
       setAccount(acc[0]);
+      setSigner(provider.getSigner());
     });
   };
 
@@ -58,25 +59,35 @@ export const AppProvider = ({ children }) => {
   };
 
   const connectWallet = async () => {
-    if (disabled) return;
+    try {
+      if (disabled) return;
 
-    if (!window.ethereum) {
-      notify({
-        title: 'No Wallet installed',
-        msg: 'You need to have a Wallet installed to buy something',
-        type: 'error',
-      });
+      if (!window.ethereum) {
+        notify({
+          title: 'No Wallet installed',
+          msg: 'You need to have a Wallet installed to buy something',
+          type: 'error',
+        });
 
-      return;
-    }
+        return;
+      }
 
-    setDisabled(true);
+      setDisabled(true);
 
-    const { acc, sig } = await settingAccount();
+      const { acc, sig } = await settingAccount();
 
-    if (acc) {
-      setAccount(acc);
-      setSigner(sig);
+      if (acc) {
+        setAccount(acc);
+        setSigner(sig);
+      }
+    } catch (error) {
+      if (error.code === 'ACTION_REJECTED' || error.code === 4001) {
+        notify({
+          title: 'Wallet Connection Cancelled',
+          msg: 'You must connect your wallet to interact',
+          type: 'error',
+        });
+      } else console.log('error creating contract', error);
     }
   };
 
