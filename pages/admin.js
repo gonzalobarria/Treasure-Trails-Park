@@ -117,6 +117,20 @@ export default function Home() {
                 >
                   ADD Challenge 3
                 </button>
+                <button
+                  onClick={() =>
+                    addActivity(
+                      'Challenge 4',
+                      'Escanea el castillo 4',
+                      15,
+                      0,
+                      date.setHours(date.getHours() + 4),
+                      ACTIVITY_TYPE.CHALLENGE
+                    )
+                  }
+                >
+                  ADD Challenge 4
+                </button>
               </>
             )}
             <button onClick={() => setOpenCamera(true)}>OPEN</button>
