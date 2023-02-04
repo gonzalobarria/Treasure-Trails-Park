@@ -47,12 +47,16 @@ export const TreasureTrailsProvider = ({ children }) => {
 
   const settingBasics = async () => {
     try {
+      console.log('seteando basics');
       const mTick = await contract.getMyTickets();
+      console.log('mTick :>> ', mTick);
       checkValidTicket(mTick);
       setMyTickets(mTick);
 
       setTickets(await contract.getTickets());
       setCredits(await contract.getCredits());
+      const xx = await contract.getCredits();
+      console.log('xx :>> ', xx);
 
       setActiveChallenges(
         await contract.getActiveActivities(ACTIVITY_TYPE.CHALLENGE)
@@ -62,6 +66,7 @@ export const TreasureTrailsProvider = ({ children }) => {
       setIsOwner(theOwner.toLowerCase() === account.toLowerCase());
       setIsLoading(false);
     } catch (error) {
+      console.log('error :>> ', error);
       notify({
         title: 'Error at the begining',
         msg: 'Something wrong just happening',
@@ -200,6 +205,7 @@ export const TreasureTrailsProvider = ({ children }) => {
     try {
       const tx1 = await contract?.completeChallenge(activityIndex);
       await tx1.wait();
+      setCredits(await contract.getCredits());
 
       notify({
         title: 'Challenge Completed Successfully',
@@ -216,6 +222,10 @@ export const TreasureTrailsProvider = ({ children }) => {
       } else console.log('error completing challenge', error);
     }
   };
+
+  // const completedChallenges = async () => {
+  //   getEntranceCount
+  // }
 
   return (
     <TreasureTrailsContext.Provider
