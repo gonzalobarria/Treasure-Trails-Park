@@ -131,7 +131,7 @@ export default function Home() {
         </div>
 
         <QRCode
-          value="1"
+          value="2"
           logoImage="https://www.gonzalobarria.com/images/logo-gb.jpg"
           eyeRadius={[
             {
