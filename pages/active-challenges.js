@@ -22,7 +22,7 @@ export default function ActiveChallenges() {
   }, [activityIndex, activeChallenges]);
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
+    <div className="flex flex-col items-center justify-center h-screen bg-fondo02">
       <h1>Active Challenges</h1>
       <span>{credits.toString()} Credits</span>
       {activeChallenges.length === 0 ? (
