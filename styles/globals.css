@@ -3,6 +3,13 @@
 @tailwind utilities;
 
 h1 {
+  @apply text-[##180e30];
+}
+p {
+  @apply text-[##180e30];
+}
+
+h1 {
   @apply text-3xl font-bold;
 }
 h2 {
@@ -13,6 +20,10 @@ h3 {
 }
 h4 {
   @apply text-lg font-semibold;
+}
+
+.glass {
+  @apply max-w-screen-lg p-5 mx-3 mt-24 mb-10 md:p-8 bg-white/50 rounded-xl backdrop-blur-md drop-shadow-lg
 }
 /* 
 :root {

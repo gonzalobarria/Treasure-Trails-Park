@@ -36,33 +36,34 @@ export default function ScanV2({ setId, setOpenCamera }) {
     console.error(err);
   };
   return (
-    <div className="App">
-      <button
-        className=""
-        onClick={() => {
-          setStartScan(!startScan);
-          setLoadingScan(false);
-          setOpenCamera();
-        }}
-      >
-        Cancel Scan
-      </button>
+    <div className="text-center">
       {startScan && (
         <>
-          <select onChange={(e) => setSelected(e.target.value)}>
+          {/* <select onChange={(e) => setSelected(e.target.value)}>
             <option value={'environment'}>Back Camera</option>
             <option value={'user'}>Front Camera</option>
-          </select>
+          </select> */}
           <QrReader
             facingMode={selected}
             delay={1000}
             onError={handleError}
             onScan={handleScan}
             chooseDeviceId={() => selected}
-            style={{ width: '500px' }}
+            style={{ width: '450px' }}
           />
         </>
       )}
+
+      <button
+        className=" mt-6 text-white bg-gradient-to-br from-green-400 to-purple-600 hover:bg-gradient-to-bl focus:outline-none font-medium rounded-lg text-md px-4 py-1.5 text-center"
+        onClick={() => {
+          setStartScan(!startScan);
+          setLoadingScan(false);
+          setOpenCamera();
+        }}
+      >
+        Close
+      </button>
     </div>
   );
 }

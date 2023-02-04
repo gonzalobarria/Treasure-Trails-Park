@@ -47,16 +47,12 @@ export const TreasureTrailsProvider = ({ children }) => {
 
   const settingBasics = async () => {
     try {
-      console.log('seteando basics');
       const mTick = await contract.getMyTickets();
-      console.log('mTick :>> ', mTick);
       checkValidTicket(mTick);
       setMyTickets(mTick);
 
       setTickets(await contract.getTickets());
       setCredits(await contract.getCredits());
-      const xx = await contract.getCredits();
-      console.log('xx :>> ', xx);
 
       setActiveChallenges(
         await contract.getActiveActivities(ACTIVITY_TYPE.CHALLENGE)
@@ -223,6 +219,84 @@ export const TreasureTrailsProvider = ({ children }) => {
     }
   };
 
+  const getActivities = async () => {
+    try {
+      return await contract.getActivities();
+    } catch (error) {
+      notify({
+        title: 'Getting Activities Error',
+        msg: 'Something wrong happening with the restaurant',
+        type: 'error',
+      });
+    }
+  };
+
+  const getMenuRestaurant = async (restaurantIndex) => {
+    try {
+      return await contract.getMenuRestaurant(restaurantIndex);
+    } catch (error) {
+      notify({
+        title: 'Menu Restaurant Error',
+        msg: 'Something wrong happening with the restaurant',
+        type: 'error',
+      });
+    }
+  };
+
+  const addRestaurant = async (name) => {
+    try {
+      const tx1 = await contract.addRestaurant(name);
+
+      notify({
+        title: 'Add Restaurant in Progress',
+        msg: 'The confirmation is on the way',
+        type: 'info',
+      });
+      await tx1.wait();
+
+      notify({
+        title: 'Add Restaurant Confirmed',
+        msg: 'The restaurant was created successfully',
+        type: 'info',
+      });
+    } catch (error) {
+      if (error.code === 'ACTION_REJECTED' || error.code === 4001) {
+        notify({
+          title: 'Add Restaurant Error',
+          msg: 'Operation was cancelled by the user, please try again',
+          type: 'error',
+        });
+      } else console.log('error completing challenge', error);
+    }
+  };
+
+  const setMenuRestaurant = async (restaurantIndex, menu) => {
+    try {
+      const tx1 = await contract.setMenuRestaurant(restaurantIndex, menu);
+
+      notify({
+        title: 'Add Menu Restaurant in Progress',
+        msg: 'The confirmation is on the way',
+        type: 'info',
+      });
+      await tx1.wait();
+
+      notify({
+        title: 'Add Menu Restaurant Confirmed',
+        msg: 'The restaurant was created successfully',
+        type: 'info',
+      });
+    } catch (error) {
+      if (error.code === 'ACTION_REJECTED' || error.code === 4001) {
+        notify({
+          title: 'Add Menu Restaurant Error',
+          msg: 'Operation was cancelled by the user, please try again',
+          type: 'error',
+        });
+      } else console.log('error completing challenge', error);
+    }
+  };
+
   // const completedChallenges = async () => {
   //   getEntranceCount
   // }
@@ -241,6 +315,10 @@ export const TreasureTrailsProvider = ({ children }) => {
         hasValidTicket,
         isLoading,
         completeChallenge,
+        getMenuRestaurant,
+        addRestaurant,
+        getActivities,
+        setMenuRestaurant,
       }}
     >
       {children}

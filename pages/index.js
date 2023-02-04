@@ -14,7 +14,7 @@ export default function Home() {
   useEffect(() => {
     if (!isLoading && account) {
       if (!isOwner) {
-        if (hasValidTicket) router.push('/active-challenges');
+        if (hasValidTicket) router.push('/challenges');
         else router.push('/tickets');
       } else router.push('/admin');
     }
