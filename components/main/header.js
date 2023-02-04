@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { TreasureTrailsContext } from '../contexts/TreasureTrailsContext';
-import DropDownMenu from './menu';
+// import DropDownMenu from './menu';
 
 export default function Header() {
   const { credits } = useContext(TreasureTrailsContext);
@@ -17,7 +17,7 @@ export default function Header() {
       <p className="w-full mx-3 text-xl font-semibold text-right">
         {credits.toString()} Credits
       </p>
-      <DropDownMenu options={menuMovil} />
+      {/* <DropDownMenu options={menuMovil} /> */}
     </div>
   );
 }
