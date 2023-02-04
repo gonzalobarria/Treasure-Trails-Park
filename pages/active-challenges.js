@@ -26,7 +26,7 @@ export default function ActiveChallenges() {
       <h1>Active Challenges</h1>
       {activeChallenges.length === 0 ? (
         <div className="">
-          <h3>There are no challenges at the moment</h3>
+          <h3>There are no challenges in this moment</h3>
         </div>
       ) : (
         <>
