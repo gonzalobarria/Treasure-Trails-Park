@@ -33,7 +33,7 @@ export default function Home() {
   let date = new Date();
 
   return (
-    <>
+    <div className="pb-10">
       <div className="glass">
         {openCamera && <Scan setId={setData} />}
         <p>Get started by editing&nbsp;</p>
@@ -232,20 +232,21 @@ export default function Home() {
           </button>
         </div>
       </div>
-
-      <QRCode
-        value="0"
-        logoImage="https://www.gonzalobarria.com/images/logo-gb.jpg"
-        eyeRadius={[
-          {
-            // top/left eye
-            outer: [10, 10, 0, 10],
-            inner: [10, 10, 0, 10],
-          },
-          [10, 10, 10, 0], // top/right eye
-          [10, 0, 10, 10], // bottom/left
-        ]}
-      />
-    </>
+      <div className='w-full p-20 bg-white '>
+        <QRCode
+          value="1"
+          logoImage="https://www.gonzalobarria.com/images/logo-gb.jpg"
+          eyeRadius={[
+            {
+              // top/left eye
+              outer: [10, 10, 0, 10],
+              inner: [10, 10, 0, 10],
+            },
+            [10, 10, 10, 0], // top/right eye
+            [10, 0, 10, 10], // bottom/left
+          ]}
+        />
+      </div>
+    </div>
   );
 }
