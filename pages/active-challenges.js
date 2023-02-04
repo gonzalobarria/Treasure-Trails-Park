@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { TreasureTrailsContext } from '@/components/contexts/TreasureTrailsContext';
-import Scan from '@/components/utils/Scan';
+import Modal from '@/components/utils/Modal';
 
 export default function ActiveChallenges() {
   const { activeChallenges, completeChallenge, credits } = useContext(
@@ -22,7 +22,7 @@ export default function ActiveChallenges() {
   }, [activityIndex, activeChallenges]);
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-fondo02">
+    <div className="flex flex-col items-center justify-center h-screen bg-center bg-park">
       <h1>Active Challenges</h1>
       <span>{credits.toString()} Credits</span>
       {activeChallenges.length === 0 ? (
@@ -32,7 +32,11 @@ export default function ActiveChallenges() {
       ) : (
         <>
           {openCamera && (
-            <Scan setId={setActivityIndex} setOpenCamera={setOpenCamera} />
+            <Modal
+              setId={setActivityIndex}
+              showModal={openCamera}
+              toggleModal={() => setOpenCamera(false)}
+            />
           )}
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-4">
             {activeChallenges.map((t, i) => {

@@ -7,7 +7,8 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        fondo02: "url('/images/fondo01.jpg')",
+        fondo01: "url('/images/fondo01.jpg')",
+        park: "url('/images/park.jpg')",
       },
     },
   },
