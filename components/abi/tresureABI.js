@@ -445,38 +445,13 @@ export const treasureTrailsABI = [
     type: 'function',
   },
   {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: '_activityId',
-        type: 'uint256',
-      },
-    ],
-    name: 'getActivityPlayer',
+    inputs: [],
+    name: 'getChallengesCompleted',
     outputs: [
       {
-        internalType: 'uint256',
+        internalType: 'uint256[]',
         name: '',
-        type: 'uint256',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: '_activityId',
-        type: 'uint256',
-      },
-    ],
-    name: 'getActivityWinnedPlayer',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256',
+        type: 'uint256[]',
       },
     ],
     stateMutability: 'view',
