@@ -15,13 +15,17 @@ export default function Attractions() {
   } = useContext(TreasureTrailsContext);
   const [activityIndex, setActivityIndex] = useState('');
   const [openCamera, setOpenCamera] = useState(false);
-  const [entranceCount, setEntranceCount] = useState(0);
-  const [exitCount, setExitCount] = useState(0);
+  const [entranceCount, setEntranceCount] = useState({});
+  const [exitCount, setExitCount] = useState({});
 
   useEffect(() => {
     const fetchData = async () => {
-      setEntranceCount(await getEntranceCount(activityIndex));
-      setExitCount(await getExitCount(activityIndex));
+      const enC = {
+        [activityIndex]: await getEntranceCount(activityIndex),
+      };
+      const exC = {
+        [activityIndex]: await getExitCount(activityIndex),
+      };
 
       const theActivity = activities.find(
         (t, i) =>
@@ -30,20 +34,28 @@ export default function Attractions() {
       );
 
       if (theActivity) {
-        if (entranceCount === 0) {
+        if (
+          enC[activityIndex] === 0 ||
+          enC[activityIndex] === exC[activityIndex]
+        ) {
           await entranceAttraction(activityIndex);
-          setEntranceCount(await getEntranceCount(activityIndex));
-        } else if (entranceCount > exitCount) {
+          setEntranceCount({
+            [activityIndex]: await getEntranceCount(activityIndex),
+          });
+        } else if (enC[activityIndex] > exC[activityIndex]) {
           await exitAttraction(activityIndex);
-          setExitCount(await getExitCount(activityIndex));
+          setExitCount({
+            [activityIndex]: await getExitCount(activityIndex),
+          });
         }
       }
+    };
+
+    if (activityIndex !== '') {
+      fetchData();
 
       setActivityIndex('');
       setOpenCamera(false);
-    };
-    if (activityIndex !== '') {
-      fetchData();
     }
   }, [activityIndex, activeChallenges]);
 

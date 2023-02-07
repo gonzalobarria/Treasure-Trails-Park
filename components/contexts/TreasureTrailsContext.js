@@ -491,6 +491,8 @@ export const TreasureTrailsProvider = ({ children }) => {
         msg: 'You have entered to the attraction successfully',
         type: 'info',
       });
+
+      setCredits(await contract.getCredits());
     } catch (error) {
       if (error.code === 'ACTION_REJECTED' || error.code === 4001) {
         notify({
@@ -518,6 +520,8 @@ export const TreasureTrailsProvider = ({ children }) => {
         msg: 'You went out from the attraction successfully',
         type: 'info',
       });
+
+      setCredits(await contract.getCredits());
     } catch (error) {
       if (error.code === 'ACTION_REJECTED' || error.code === 4001) {
         notify({
