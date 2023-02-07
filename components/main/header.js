@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { AppContext } from '../contexts/AppContext';
 import { TreasureTrailsContext } from '../contexts/TreasureTrailsContext';
+import DropDownMenu from './menu';
 // import DropDownMenu from './menu';
 
 export default function Header() {
@@ -19,7 +20,7 @@ export default function Header() {
       <p className="w-full mx-3 text-xl font-semibold text-right text-[#180e30]">
         {credits.toString()} Credits
       </p>
-      {/* <DropDownMenu options={menuMovil} /> */}
+      <DropDownMenu options={menuMovil} />
     </div>
   ) : null;
 }
