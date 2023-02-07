@@ -5,7 +5,9 @@ import DropDownMenu from './menu';
 
 export default function Header() {
   const { account } = useContext(AppContext);
-  const { credits } = useContext(TreasureTrailsContext);
+  const { credits, isLoading, hasValidTicket } = useContext(
+    TreasureTrailsContext
+  );
   const menuMovil = {
     menu: [
       { glosa: 'Challenges', url: '/challenges' },
@@ -20,7 +22,7 @@ export default function Header() {
       <p className="w-full mx-3 text-xl font-semibold text-right text-[#180e30]">
         {credits.toString()} Credits
       </p>
-      <DropDownMenu options={menuMovil} />
+      {!isLoading && hasValidTicket && <DropDownMenu options={menuMovil} />}
     </div>
   ) : null;
 }

@@ -11,7 +11,7 @@ export const TreasureTrailsContext = createContext();
 
 export const TreasureTrailsProvider = ({ children }) => {
   const router = useRouter();
-  const { account, signer } = useContext(AppContext);
+  const { account, signer, isLoadingAccount } = useContext(AppContext);
   const [contract, setContract] = useState();
   const [tickets, setTickets] = useState([]);
   const [myTickets, setMyTickets] = useState([]);
@@ -22,6 +22,31 @@ export const TreasureTrailsProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [activities, setActivities] = useState([]);
   const [challengesCompleted, setChallengesCompleted] = useState([]);
+
+  const allowedRoutes = ['/', '/tickets'];
+
+  useEffect(() => {
+    if (!isLoadingAccount && !account) {
+      if (isOwner) return;
+
+      if (!allowedRoutes.includes(router.pathname)) {
+        router.push('/');
+      }
+    } else if (!isLoading) {
+      if (isOwner) return;
+
+      if (!hasValidTicket) router.push('/tickets');
+      else if (allowedRoutes.includes(router.pathname))
+        router.push('/challenges');
+    }
+  }, [
+    isOwner,
+    account,
+    hasValidTicket,
+    isLoading,
+    router.pathname,
+    isLoadingAccount,
+  ]);
 
   useEffect(() => {
     if (signer && !contract) settingContract();
@@ -36,6 +61,7 @@ export const TreasureTrailsProvider = ({ children }) => {
     });
 
     if (validTicket) setHasValidTicket(true);
+    else setHasValidTicket(false);
   };
 
   const settingContract = () => {
@@ -103,6 +129,8 @@ export const TreasureTrailsProvider = ({ children }) => {
           type: 'info',
         });
 
+        checkValidTicket(await contract.getMyTickets());
+        setCredits(await contract.getCredits());
         router.push('/challenges');
       }
     } catch (error) {
@@ -112,7 +140,13 @@ export const TreasureTrailsProvider = ({ children }) => {
           msg: 'Operation was cancelled by the user, please try again',
           type: 'error',
         });
-      } else console.log('error buying ticket', error);
+      } else {
+        notify({
+          title: 'Buy Ticket Error',
+          msg: 'Just one ticket per person',
+          type: 'error',
+        });
+      }
     }
   };
 
@@ -559,6 +593,31 @@ export const TreasureTrailsProvider = ({ children }) => {
     }
   };
 
+  const withdraw = async () => {
+    try {
+      const tx1 = await contract.withdraw();
+
+      notify({
+        title: 'Withdraw in Progress',
+        msg: 'The confirmation is on the way',
+        type: 'info',
+      });
+      await tx1.wait();
+
+      notify({
+        title: 'Withdraw Confirmed',
+        msg: 'Money successfully withdrawed',
+        type: 'info',
+      });
+    } catch (error) {
+      notify({
+        title: 'Withdraw Error',
+        msg: 'Something wrong happening with the exit count',
+        type: 'error',
+      });
+    }
+  };
+
   return (
     <TreasureTrailsContext.Provider
       value={{
@@ -597,6 +656,8 @@ export const TreasureTrailsProvider = ({ children }) => {
         exitAttraction,
         getEntranceCount,
         getExitCount,
+
+        withdraw,
       }}
     >
       {children}

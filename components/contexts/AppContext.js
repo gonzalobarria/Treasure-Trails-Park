@@ -8,6 +8,7 @@ export const AppProvider = ({ children }) => {
   const [account, setAccount] = useState();
   const [signer, setSigner] = useState();
   const [disabled, setDisabled] = useState(false);
+  const [isLoadingAccount, setIsLoadingAccount] = useState(true);
 
   useEffect(() => {
     if (!window.ethereum) return;
@@ -24,8 +25,9 @@ export const AppProvider = ({ children }) => {
     if (!account && acc.length > 0) {
       setAccount(acc[0]);
       setSigner(provider.getSigner());
+      setIsLoadingAccount(false);
       return;
-    }
+    } else setIsLoadingAccount(false);
   };
 
   const checkIfWalletChanged = () => {
@@ -98,6 +100,7 @@ export const AppProvider = ({ children }) => {
         setAccount,
         signer,
         connectWallet,
+        isLoadingAccount,
       }}
     >
       {children}

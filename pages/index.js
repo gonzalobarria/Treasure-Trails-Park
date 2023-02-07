@@ -1,24 +1,9 @@
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { AppContext } from '@/components/contexts/AppContext';
 import ConnectWallet from '@/components/web3/ConnectWallet';
-import { TreasureTrailsContext } from '@/components/contexts/TreasureTrailsContext';
-import { Router, useRouter } from 'next/router';
 
 export default function Home() {
-  const router = useRouter();
   const { account } = useContext(AppContext);
-  const { isOwner, hasValidTicket, isLoading } = useContext(
-    TreasureTrailsContext
-  );
-
-  useEffect(() => {
-    if (!isLoading && account) {
-      if (!isOwner) {
-        if (hasValidTicket) router.push('/challenges');
-        else router.push('/tickets');
-      } else router.push('/admin');
-    }
-  }, [isOwner, account, hasValidTicket, isLoading]);
 
   return (
     <div className="">

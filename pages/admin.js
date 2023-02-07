@@ -1,14 +1,11 @@
-import { QRCode } from 'react-qrcode-logo';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import Input from '@/components/utils/Input';
-import Scan from '@/components/utils/Scan';
 import { TreasureTrailsContext } from '@/components/contexts/TreasureTrailsContext';
-import Link from 'next/link';
 import { ACTIVITY_TYPE } from '@/utils/enums';
+import QR from '@/components/utils/QR';
 
 export default function Home() {
   const {
-    tickets,
     isOwner,
     addTicket,
     addRestaurant,
@@ -16,21 +13,9 @@ export default function Home() {
     addActivity,
     setMenuRestaurant,
     setStoreProducts,
+    withdraw,
   } = useContext(TreasureTrailsContext);
-  const [openCamera, setOpenCamera] = useState(false);
   const [value, setValue] = useState('');
-
-  const [data, setData] = useState('');
-
-  useEffect(() => {
-    if (data !== '') {
-      const theticket = tickets.find((t, i) => i === parseInt(data));
-
-      if (theticket) buyTicket(data);
-      setData('');
-      setOpenCamera(false);
-    }
-  }, [data, tickets]);
 
   let date = new Date();
 
@@ -40,18 +25,9 @@ export default function Home() {
 
   return (
     <div className="pb-10">
-      <div className="glass">
-        {openCamera && <Scan setId={setData} />}
-        <p>Get started by editing&nbsp;</p>
-        <div className="flex flex-col gap-3">
-          <div className="text-center">
-            <Link href="/tickets">Tickets</Link>
-          </div>
-          <button onClick={() => buyTicket(2)}>BUY</button>
-          <div className="text-center">
-            <Link href="/challenges">Challenges</Link>
-          </div>
-          {isOwner && (
+      {isOwner && (
+        <div className="glass">
+          <div className="flex flex-col gap-3">
             <>
               <button
                 onClick={() => addTicket('General Entrance', 0.01, 1, 50)}
@@ -367,36 +343,16 @@ export default function Home() {
               >
                 ADD Attraction 4
               </button>
+              <button onClick={() => withdraw()}>Withdraw</button>
             </>
-          )}
-
-          <button onClick={() => setOpenCamera(true)}>OPEN</button>
-          <button
-            onClick={() => {
-              console.log('isOwner :>> ', isOwner);
-            }}
-          >
-            owner
-          </button>
+          </div>
         </div>
-      </div>
+      )}
       <div className="m-4">
         <Input type="text" value={value} onChange={onChange} />
       </div>
       <div className="w-full p-20 bg-white ">
-        <QRCode
-          value={value}
-          logoImage="https://www.gonzalobarria.com/images/logo-gb.jpg"
-          eyeRadius={[
-            {
-              // top/left eye
-              outer: [10, 10, 0, 10],
-              inner: [10, 10, 0, 10],
-            },
-            [10, 10, 10, 0], // top/right eye
-            [10, 0, 10, 10], // bottom/left
-          ]}
-        />
+        <QR value={value} />
       </div>
     </div>
   );

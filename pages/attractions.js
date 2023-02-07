@@ -15,8 +15,6 @@ export default function Attractions() {
   } = useContext(TreasureTrailsContext);
   const [activityIndex, setActivityIndex] = useState('');
   const [openCamera, setOpenCamera] = useState(false);
-  const [entranceCount, setEntranceCount] = useState({});
-  const [exitCount, setExitCount] = useState({});
 
   useEffect(() => {
     const fetchData = async () => {
@@ -39,14 +37,8 @@ export default function Attractions() {
           enC[activityIndex] === exC[activityIndex]
         ) {
           await entranceAttraction(activityIndex);
-          setEntranceCount({
-            [activityIndex]: await getEntranceCount(activityIndex),
-          });
         } else if (enC[activityIndex] > exC[activityIndex]) {
           await exitAttraction(activityIndex);
-          setExitCount({
-            [activityIndex]: await getExitCount(activityIndex),
-          });
         }
       }
     };
