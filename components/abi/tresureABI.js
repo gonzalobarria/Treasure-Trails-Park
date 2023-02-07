@@ -73,6 +73,10 @@ export const treasureTrailsABI = [
     type: 'event',
   },
   {
+    stateMutability: 'payable',
+    type: 'fallback',
+  },
+  {
     inputs: [
       {
         internalType: 'uint256',
@@ -435,6 +439,44 @@ export const treasureTrailsABI = [
         internalType: 'struct TreasureTrailsXPFactory.Activity',
         name: '',
         type: 'tuple',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: '_activityId',
+        type: 'uint256',
+      },
+    ],
+    name: 'getActivityPlayer',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: '_activityId',
+        type: 'uint256',
+      },
+    ],
+    name: 'getActivityWinnedPlayer',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
       },
     ],
     stateMutability: 'view',
@@ -941,5 +983,9 @@ export const treasureTrailsABI = [
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
+  },
+  {
+    stateMutability: 'payable',
+    type: 'receive',
   },
 ];

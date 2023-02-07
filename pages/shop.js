@@ -2,15 +2,15 @@ import { useContext, useEffect, useState } from 'react';
 import { TreasureTrailsContext } from '@/components/contexts/TreasureTrailsContext';
 import Modal from '@/components/utils/Modal';
 
-export default function Restaurant() {
-  const { getMenuRestaurant } = useContext(TreasureTrailsContext);
+export default function Shop() {
+  const { getStoreProducts } = useContext(TreasureTrailsContext);
   const [activityIndex, setActivityIndex] = useState('');
   const [openCamera, setOpenCamera] = useState(false);
-  const [menuRestaurant, setMenuRestaurant] = useState([]);
+  const [storeProducts, setStoreProducts] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      setMenuRestaurant(await getMenuRestaurant(activityIndex));
+      setStoreProducts(await getStoreProducts(activityIndex));
     };
 
     if (activityIndex !== '') {
@@ -36,7 +36,7 @@ export default function Restaurant() {
           <div className="pb-8 text-center">
             <h1>Restaurant</h1>
           </div>
-          {menuRestaurant.length === 0 ? (
+          {storeProducts.length === 0 ? (
             <div className="text-center">
               <button
                 className="text-white bg-gradient-to-br from-green-400 to-purple-600 hover:bg-gradient-to-bl focus:outline-none font-medium rounded-lg text-md px-4 py-1.5 text-center"
@@ -48,7 +48,7 @@ export default function Restaurant() {
           ) : (
             <>
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 ">
-                {menuRestaurant.map((t, i) => {
+                {storeProducts.map((t, i) => {
                   if (t.isActive)
                     return (
                       <div
@@ -57,7 +57,7 @@ export default function Restaurant() {
                       >
                         <div className="grid content-between h-full">
                           <div className="pb-3">
-                            <h2 className="pb-2 font-bold">{t.name}</h2>
+                            <h2 className="font-bold">{t.name}</h2>
 
                             <div className="flex flex-row justify-between pb-2">
                               <p className="text-lg">
@@ -66,15 +66,13 @@ export default function Restaurant() {
                             </div>
                           </div>
                           <div className="relative flex justify-between w-full pt-5 text-right">
-                            <div className="absolute bottom-0">
-                              {t.discountCredits.toString()} Credits
-                            </div>
+                            <div className="absolute bottom-0"></div>
                             <div className="w-full">
                               <button
                                 className="text-white bg-gradient-to-br from-green-400 to-purple-600 hover:bg-gradient-to-bl focus:outline-none font-medium rounded-lg text-md px-4 py-1.5 text-center"
                                 onClick={() => setOpenCamera(true)}
                               >
-                                I want it!
+                                Do it!
                               </button>
                             </div>
                           </div>

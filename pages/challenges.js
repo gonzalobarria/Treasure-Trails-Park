@@ -4,7 +4,7 @@ import moment from 'moment';
 import Modal from '@/components/utils/Modal';
 
 export default function ActiveChallenges() {
-  const { activeChallenges, completeChallenge, credits } = useContext(
+  const { activeChallenges, completeChallenge } = useContext(
     TreasureTrailsContext
   );
   const [activityIndex, setActivityIndex] = useState('');
@@ -54,7 +54,7 @@ export default function ActiveChallenges() {
                     return (
                       <div
                         key={t.name}
-                        className="w-full px-5 py-4 rounded-lg bg-white/70 "
+                        className="w-full px-5 py-4 rounded-lg bg-white/70"
                       >
                         <div className="grid content-between h-full">
                           <div className="pb-3">

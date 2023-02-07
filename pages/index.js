@@ -21,9 +21,9 @@ export default function Home() {
   }, [isOwner, account, hasValidTicket, isLoading]);
 
   return (
-    <div className="fixed flex items-center justify-center w-full h-full bg-center bg-cover bg-park">
+    <div className="">
       {!account && (
-        <div className="flex flex-col items-center justify-center transition ease-in-out delay-150 duration-300 max-w-3xl px-8 py-16 md:p-20 m-3 rounded-lg bg-white/75 dark:bg-[#312222]/75 drop-shadow-2xl ">
+        <div className="flex flex-col items-center justify-center max-w-3xl px-8 py-16 m-3 transition duration-300 ease-in-out delay-150 md:p-20 glass">
           <div className="flex flex-col gap-5 text-center mb-9">
             <h1>
               Welcome to the most exciting adventure in your favorite park

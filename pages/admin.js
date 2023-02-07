@@ -38,9 +38,13 @@ export default function Home() {
         {openCamera && <Scan setId={setData} />}
         <p>Get started by editing&nbsp;</p>
         <div className="flex flex-col gap-3">
-          <button onClick={() => console.log(tickets)}>tickets</button>
+          <div className="text-center">
+            <Link href="/tickets">Tickets</Link>
+          </div>
           <button onClick={() => buyTicket(2)}>BUY</button>
-          <Link href="/active-challenges">Challenges</Link>
+          <div className="text-center">
+            <Link href="/challenges">Challenges</Link>
+          </div>
           {isOwner && (
             <>
               <button
@@ -232,7 +236,7 @@ export default function Home() {
           </button>
         </div>
       </div>
-      <div className='w-full p-20 bg-white '>
+      <div className="w-full p-20 bg-white ">
         <QRCode
           value="1"
           logoImage="https://www.gonzalobarria.com/images/logo-gb.jpg"

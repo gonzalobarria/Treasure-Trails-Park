@@ -99,7 +99,7 @@ export const TreasureTrailsProvider = ({ children }) => {
           type: 'info',
         });
 
-        router.push('/active-challenges');
+        router.push('/challenges');
       }
     } catch (error) {
       if (error.code === 'ACTION_REJECTED' || error.code === 4001) {
@@ -141,7 +141,14 @@ export const TreasureTrailsProvider = ({ children }) => {
           msg: 'Operation was cancelled by the user, please try again',
           type: 'error',
         });
-      } else console.log('error adding ticket', error);
+      } else {
+        notify({
+          title: 'Add Ticket Error',
+          msg: 'Check logs',
+          type: 'error',
+        });
+        console.log('error adding ticket', error);
+      }
     }
   };
 
@@ -169,17 +176,6 @@ export const TreasureTrailsProvider = ({ children }) => {
       });
 
       await tx1.wait();
-
-      notify({
-        title: 'Add Activity Created',
-        msg: 'Waiting activation',
-        type: 'info',
-      });
-
-      const activities = await contract.getActivities();
-      const tx2 = await contract.toggleActivity(activities.length - 1, true);
-
-      await tx2.wait();
 
       notify({
         title: 'Add Activity Successfully',
@@ -297,9 +293,9 @@ export const TreasureTrailsProvider = ({ children }) => {
     }
   };
 
-  // const completedChallenges = async () => {
-  //   getEntranceCount
-  // }
+  const getStoreProducts = async () => {};
+  const addAStore = async () => {};
+  const setStoreProducts = async () => {};
 
   return (
     <TreasureTrailsContext.Provider
@@ -310,15 +306,22 @@ export const TreasureTrailsProvider = ({ children }) => {
         buyTicket,
         tickets,
         credits,
-        activeChallenges,
         myTickets,
         hasValidTicket,
         isLoading,
+
+        activeChallenges,
         completeChallenge,
+
+        getActivities,
+
         getMenuRestaurant,
         addRestaurant,
-        getActivities,
         setMenuRestaurant,
+
+        getStoreProducts,
+        addAStore,
+        setStoreProducts,
       }}
     >
       {children}

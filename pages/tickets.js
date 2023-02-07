@@ -6,21 +6,23 @@ export default function Tickets() {
   const { tickets, buyTicket } = useContext(TreasureTrailsContext);
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-fixed ">
-      <h1>Tickets</h1>
+    <div className="glass">
+      <div className="pb-8 text-center">
+        <h1>Tickets</h1>
+      </div>
       <div className="flex flex-col w-full">
         {tickets.length === 0 ? (
           <div className="">
             <h3>Sale ticket is close now</h3>
           </div>
         ) : (
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-4">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 ">
             {tickets.map((t, i) => {
               if (t.isActive)
                 return (
                   <div
                     key={t.name}
-                    className="w-full px-5 py-4 border border-green-200 rounded-lg "
+                    className="w-full px-5 py-4 rounded-lg bg-white/70"
                   >
                     <h4 className="text-center">{t.name}</h4>
                     <div className="flex flex-row justify-between px-1 border-b border-gray-200/50">
