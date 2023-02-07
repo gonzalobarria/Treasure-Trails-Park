@@ -22,6 +22,8 @@ export const TreasureTrailsProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [activities, setActivities] = useState([]);
   const [challengesCompleted, setChallengesCompleted] = useState([]);
+  const [restaurants, setRestaurants] = useState([]);
+  const [stores, setStores] = useState([]);
 
   const allowedRoutes = ['/', '/tickets'];
 
@@ -83,6 +85,8 @@ export const TreasureTrailsProvider = ({ children }) => {
       setCredits(await contract.getCredits());
       setActivities(await getActivities());
       setChallengesCompleted(await getChallengesCompleted());
+      setRestaurants(await contract.getRestaurants());
+      setStores(await contract.getStores());
 
       setActiveChallenges(
         await contract.getActiveActivities(ACTIVITY_TYPE.CHALLENGE)
@@ -618,6 +622,30 @@ export const TreasureTrailsProvider = ({ children }) => {
     }
   };
 
+  // const getRestaurants = async () => {
+  //   try {
+  //     return await contract.getRestaurants();
+  //   } catch (error) {
+  //     notify({
+  //       title: 'getRestaurants Error',
+  //       msg: 'Something wrong happening with the exit count',
+  //       type: 'error',
+  //     });
+  //   }
+  // };
+
+  // const getStores = async () => {
+  //   try {
+  //     return await contract.getStores();
+  //   } catch (error) {
+  //     notify({
+  //       title: 'getRestaurants Error',
+  //       msg: 'Something wrong happening with the exit count',
+  //       type: 'error',
+  //     });
+  //   }
+  // };
+
   return (
     <TreasureTrailsContext.Provider
       value={{
@@ -658,6 +686,9 @@ export const TreasureTrailsProvider = ({ children }) => {
         getExitCount,
 
         withdraw,
+
+        restaurants,
+        stores,
       }}
     >
       {children}

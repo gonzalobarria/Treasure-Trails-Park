@@ -1,6 +1,7 @@
 import { useContext, useState } from 'react';
 import { TreasureTrailsContext } from '../contexts/TreasureTrailsContext';
 import Modal from '../utils/Modal';
+import QR from '../utils/QR';
 import { notify } from '../utils/Toaster';
 
 export default function Items({
@@ -10,6 +11,7 @@ export default function Items({
   setOpenCamera,
   arrayItems,
   action,
+  items,
 }) {
   const { activities, credits } = useContext(TreasureTrailsContext);
   const [menuAdded, setMenuAdded] = useState([]);
@@ -81,14 +83,28 @@ export default function Items({
             <h1>{title}</h1>
           </div>
           {arrayItems.length === 0 ? (
-            <div className="text-center">
-              <button
-                className="text-white bg-gradient-to-br from-green-400 to-purple-600 hover:bg-gradient-to-bl focus:outline-none font-medium rounded-lg text-md px-4 py-1.5 text-center"
-                onClick={() => setOpenCamera(true)}
-              >
-                Scan {title}
-              </button>
-            </div>
+            <>
+              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 ">
+                {items.map((t, i) => {
+                  return (
+                    <div className="flex flex-col" key={t.name}>
+                      <QR value={i} />
+                      <div className="py-2 mt-1 text-center bg-white rounded-lg">
+                        <h3>{t.name}</h3>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+              <div className="pt-6 text-center">
+                <button
+                  className="text-white bg-gradient-to-br from-green-400 to-purple-600 hover:bg-gradient-to-bl focus:outline-none font-medium rounded-lg text-md px-4 py-1.5 text-center"
+                  onClick={() => setOpenCamera(true)}
+                >
+                  Scan {title}
+                </button>
+              </div>
+            </>
           ) : (
             <>
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 ">

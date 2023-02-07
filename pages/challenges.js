@@ -3,6 +3,7 @@ import { TreasureTrailsContext } from '@/components/contexts/TreasureTrailsConte
 import moment from 'moment';
 import Modal from '@/components/utils/Modal';
 import { ACTIVITY_TYPE } from '@/utils/enums';
+import QR from '@/components/utils/QR';
 
 export default function ActiveChallenges() {
   const {
@@ -75,7 +76,7 @@ export default function ActiveChallenges() {
                               </p>
                             </div>
                           </div>
-                          <div className="relative flex justify-between w-full pt-5 text-right">
+                          <div className="relative flex justify-between w-full text-right">
                             <div className="absolute bottom-0">
                               Expires{' '}
                               {moment(parseInt(t.expiresAt.toString())).from(
@@ -85,12 +86,17 @@ export default function ActiveChallenges() {
                             <div className="w-full">
                               {!expired &&
                                 (!challengesCompleted.includes(i) ? (
-                                  <button
-                                    className="text-white bg-gradient-to-br from-green-400 to-purple-600 hover:bg-gradient-to-bl focus:outline-none font-medium rounded-lg text-md px-4 py-1.5 text-center"
-                                    onClick={() => setOpenCamera(true)}
-                                  >
-                                    Do it!
-                                  </button>
+                                  <>
+                                    <div className="mb-4">
+                                      <QR value={i} />
+                                    </div>
+                                    <button
+                                      className="text-white bg-gradient-to-br from-green-400 to-purple-600 hover:bg-gradient-to-bl focus:outline-none font-medium rounded-lg text-md px-4 py-1.5 text-center"
+                                      onClick={() => setOpenCamera(true)}
+                                    >
+                                      Do it!
+                                    </button>
+                                  </>
                                 ) : (
                                   <h3 className="font-bold">Done!</h3>
                                 ))}

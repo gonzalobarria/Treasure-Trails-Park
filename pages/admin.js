@@ -27,7 +27,7 @@ export default function Home() {
     <div className="pb-10">
       {isOwner && (
         <div className="glass">
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-3 md:w-96">
             <>
               <button
                 onClick={() => addTicket('General Entrance', 0.01, 1, 50)}
@@ -221,10 +221,10 @@ export default function Home() {
                 ADD Menu Restaurant 2
               </button>
 
-              <button onClick={() => addStore('Comida Peruano')}>
+              <button onClick={() => addStore('Castle Store')}>
                 ADD Store 1
               </button>
-              <button onClick={() => addStore('Comida Chilena')}>
+              <button onClick={() => addStore('Shrek Gifts')}>
                 ADD Store 2
               </button>
               <button
@@ -351,7 +351,7 @@ export default function Home() {
       <div className="m-4">
         <Input type="text" value={value} onChange={onChange} />
       </div>
-      <div className="w-full p-20 bg-white ">
+      <div className="flex justify-center text-center ">
         <QR value={value} />
       </div>
     </div>

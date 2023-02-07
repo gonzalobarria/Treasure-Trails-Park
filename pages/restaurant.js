@@ -3,7 +3,7 @@ import { TreasureTrailsContext } from '@/components/contexts/TreasureTrailsConte
 import Items from '@/components/main/Items';
 
 export default function Restaurant() {
-  const { getIdsMenuRestaurant, isLoading, buyMeals } = useContext(
+  const { getIdsMenuRestaurant, isLoading, buyMeals, restaurants } = useContext(
     TreasureTrailsContext
   );
   const [activityIndex, setActivityIndex] = useState('');
@@ -39,6 +39,7 @@ export default function Restaurant() {
       setOpenCamera={setOpenCamera}
       action={payForIt}
       setActivityIndex={setActivityIndex}
+      items={restaurants}
     />
   );
 }
