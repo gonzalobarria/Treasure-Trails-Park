@@ -8,7 +8,7 @@ export const notify = ({ title, msg, type }) =>
     (t) => (
       <div
         className={classNames([
-          'flex flex-row items-center justify-between w-96 bg-gradient-to-r hover:bg-gradient-to-br px-4 py-6 text-white shadow-2xl hover:shadow-none transform-gpu translate-y-0 hover:translate-y-1 rounded-xl relative transition-all duration-500 ease-in-out',
+          'flex flex-row items-center w-96 bg-gradient-to-r hover:bg-gradient-to-br px-4 py-6 text-white shadow-2xl hover:shadow-none transform-gpu translate-y-0 hover:translate-y-1 rounded-xl relative transition-all duration-500 ease-in-out',
           type === 'error'
             ? 'from-red-400 via-red-500 to-red-600'
             : 'from-green-400 via-green-500 to-green-600',

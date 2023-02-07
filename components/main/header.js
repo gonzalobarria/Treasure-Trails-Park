@@ -2,7 +2,6 @@ import { useContext } from 'react';
 import { AppContext } from '../contexts/AppContext';
 import { TreasureTrailsContext } from '../contexts/TreasureTrailsContext';
 import DropDownMenu from './menu';
-// import DropDownMenu from './menu';
 
 export default function Header() {
   const { account } = useContext(AppContext);
@@ -11,7 +10,7 @@ export default function Header() {
     menu: [
       { glosa: 'Challenges', url: '/challenges' },
       { glosa: 'Restaurant', url: '/restaurant' },
-      { glosa: 'Shop', url: '/shop' },
+      { glosa: 'Store', url: '/store' },
     ],
   };
 

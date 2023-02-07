@@ -2,39 +2,39 @@ import { useContext, useEffect, useState } from 'react';
 import { TreasureTrailsContext } from '@/components/contexts/TreasureTrailsContext';
 import Items from '@/components/main/Items';
 
-export default function Restaurant() {
-  const { getIdsMenuRestaurant, isLoading, buyMeals } = useContext(
+export default function Store() {
+  const { getIdsProductsStore, isLoading, buyProducts } = useContext(
     TreasureTrailsContext
   );
   const [activityIndex, setActivityIndex] = useState('');
   const [openCamera, setOpenCamera] = useState(false);
-  const [menuIdRestaurant, setMenuIdRestaurant] = useState([]);
-  const [restaurantIndex, setRestaurantIndex] = useState();
+  const [storeIdProducts, setStoreIdProducts] = useState([]);
+  const [storeIndex, setStoreIndex] = useState();
 
   useEffect(() => {
     const fetchData = async () => {
-      setMenuIdRestaurant(await getIdsMenuRestaurant(activityIndex));
-      setRestaurantIndex(activityIndex);
+      setStoreIdProducts(await getIdsProductsStore(activityIndex));
+      setStoreIndex(activityIndex);
     };
 
-    if (!isLoading && menuIdRestaurant?.length === 0 && activityIndex !== '') {
+    if (!isLoading && storeIdProducts?.length === 0 && activityIndex !== '') {
       fetchData();
 
       setActivityIndex('');
       setOpenCamera(false);
     }
-  }, [menuIdRestaurant, isLoading, activityIndex]);
+  }, [storeIdProducts, isLoading, activityIndex]);
 
-  const payForIt = async (menuAdded) => {
+  const payForIt = async (productsAdded) => {
     try {
-      await buyMeals(restaurantIndex, menuAdded);
+      await buyProducts(storeIndex, productsAdded);
     } catch (error) {}
   };
 
   return (
     <Items
-      title="Restaurant"
-      arrayItems={menuIdRestaurant}
+      title="Store"
+      arrayItems={storeIdProducts}
       openCamera={openCamera}
       setOpenCamera={setOpenCamera}
       action={payForIt}

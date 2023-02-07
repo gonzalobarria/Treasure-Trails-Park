@@ -1,6 +1,3 @@
-// versi "react-qr-reader" 1.0.0. component API harus disesuaikan dengan yg baru
-
-// import "./styles.css";
 import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 const QrReader = dynamic(() => import('react-qr-reader'), { ssr: false });
@@ -17,22 +14,15 @@ export default function Scan({ setId, setOpenCamera }) {
   }, []);
 
   useEffect(() => {
-    console.log('data :>> ', data);
-    if (data !== '') {
-      console.log('seteando id');
-      setId(data);
-    }
+    if (data !== '') setId(data);
   }, [data]);
 
   const handleScan = async (scanData) => {
     setLoadingScan(true);
-    console.log(`loaded data data`, scanData);
     if (scanData && scanData !== '') {
-      console.log(`loaded >>>`, scanData);
       setData(scanData);
       setStartScan(false);
       setLoadingScan(false);
-      // setPrecScan(scanData);
     }
   };
   const handleError = (err) => {
@@ -67,7 +57,7 @@ export default function Scan({ setId, setOpenCamera }) {
             delay={1000}
             onError={handleError}
             onScan={handleScan}
-            chooseDeviceId={()=>selected}
+            chooseDeviceId={() => selected}
             style={{ width: '500px' }}
           />
         </>

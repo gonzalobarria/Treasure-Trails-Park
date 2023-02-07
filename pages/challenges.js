@@ -4,9 +4,8 @@ import moment from 'moment';
 import Modal from '@/components/utils/Modal';
 
 export default function ActiveChallenges() {
-  const { activeChallenges, completeChallenge } = useContext(
-    TreasureTrailsContext
-  );
+  const { activeChallenges, completeChallenge, challengesCompleted } =
+    useContext(TreasureTrailsContext);
   const [activityIndex, setActivityIndex] = useState('');
   const [openCamera, setOpenCamera] = useState(false);
 
@@ -80,14 +79,17 @@ export default function ActiveChallenges() {
                               )}
                             </div>
                             <div className="w-full">
-                              {!expired && (
-                                <button
-                                  className="text-white bg-gradient-to-br from-green-400 to-purple-600 hover:bg-gradient-to-bl focus:outline-none font-medium rounded-lg text-md px-4 py-1.5 text-center"
-                                  onClick={() => setOpenCamera(true)}
-                                >
-                                  Do it!
-                                </button>
-                              )}
+                              {!expired &&
+                                (!challengesCompleted.includes(i) ? (
+                                  <button
+                                    className="text-white bg-gradient-to-br from-green-400 to-purple-600 hover:bg-gradient-to-bl focus:outline-none font-medium rounded-lg text-md px-4 py-1.5 text-center"
+                                    onClick={() => setOpenCamera(true)}
+                                  >
+                                    Do it!
+                                  </button>
+                                ) : (
+                                  <h3 className="font-bold">Done!</h3>
+                                ))}
                             </div>
                           </div>
                         </div>

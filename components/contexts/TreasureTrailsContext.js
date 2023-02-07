@@ -20,6 +20,8 @@ export const TreasureTrailsProvider = ({ children }) => {
   const [activeChallenges, setActiveChallenges] = useState([]);
   const [hasValidTicket, setHasValidTicket] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [activities, setActivities] = useState([]);
+  const [challengesCompleted, setChallengesCompleted] = useState([]);
 
   useEffect(() => {
     if (signer && !contract) settingContract();
@@ -53,6 +55,8 @@ export const TreasureTrailsProvider = ({ children }) => {
 
       setTickets(await contract.getTickets());
       setCredits(await contract.getCredits());
+      setActivities(await getActivities());
+      setChallengesCompleted(await getChallengesCompleted());
 
       setActiveChallenges(
         await contract.getActiveActivities(ACTIVITY_TYPE.CHALLENGE)
@@ -134,6 +138,8 @@ export const TreasureTrailsProvider = ({ children }) => {
         msg: 'Ticket is available to be buyed by the customers',
         type: 'info',
       });
+
+      setTickets(await contract.getTickets());
     } catch (error) {
       if (error.code === 'ACTION_REJECTED' || error.code === 4001) {
         notify({
@@ -182,6 +188,8 @@ export const TreasureTrailsProvider = ({ children }) => {
         msg: 'Activity is available to be buyed by the customers',
         type: 'info',
       });
+
+      setActivities(await getActivities());
     } catch (error) {
       if (error.code === 'ACTION_REJECTED' || error.code === 4001) {
         notify({
@@ -204,6 +212,8 @@ export const TreasureTrailsProvider = ({ children }) => {
         msg: 'Congratulations, you have winned XX credits. Go with the next challenge',
         type: 'info',
       });
+
+      setChallengesCompleted(await getChallengesCompleted());
     } catch (error) {
       if (error.code === 'ACTION_REJECTED' || error.code === 4001) {
         notify({
@@ -211,7 +221,14 @@ export const TreasureTrailsProvider = ({ children }) => {
           msg: 'Operation was cancelled by the user, please try again',
           type: 'error',
         });
-      } else console.log('error completing challenge', error);
+      } else {
+        notify({
+          title: 'Challenge Error',
+          msg: 'Somthing wrong happened',
+          type: 'error',
+        });
+        console.log('error completing challenge', error);
+      }
     }
   };
 
@@ -227,12 +244,51 @@ export const TreasureTrailsProvider = ({ children }) => {
     }
   };
 
+  const getChallengesCompleted = async () => {
+    try {
+      const cc = await contract.getChallengesCompleted();
+      return cc.map((c) => parseInt(c.toString()));
+    } catch (error) {
+      notify({
+        title: 'Getting Activity Player Error',
+        msg: 'Something wrong happening with the restaurant',
+        type: 'error',
+      });
+    }
+  };
+
   const getMenuRestaurant = async (restaurantIndex) => {
     try {
       return await contract.getMenuRestaurant(restaurantIndex);
     } catch (error) {
       notify({
         title: 'Menu Restaurant Error',
+        msg: 'Something wrong happening with the restaurant',
+        type: 'error',
+      });
+    }
+  };
+
+  const getIdsMenuRestaurant = async (restaurantIndex) => {
+    try {
+      const cc = await contract.getIdsMenuRestaurant(restaurantIndex);
+      return cc.map((c) => parseInt(c.toString()));
+    } catch (error) {
+      notify({
+        title: 'Menu Restaurant Error',
+        msg: 'Something wrong happening with the restaurant',
+        type: 'error',
+      });
+    }
+  };
+
+  const getIdsProductsStore = async (storeIndex) => {
+    try {
+      const cc = await contract.getIdsProductsStore(storeIndex);
+      return cc.map((c) => parseInt(c.toString()));
+    } catch (error) {
+      notify({
+        title: 'Store Products Error',
         msg: 'Something wrong happening with the restaurant',
         type: 'error',
       });
@@ -294,8 +350,131 @@ export const TreasureTrailsProvider = ({ children }) => {
   };
 
   const getStoreProducts = async () => {};
-  const addAStore = async () => {};
-  const setStoreProducts = async () => {};
+  const addStore = async (name) => {
+    try {
+      const tx1 = await contract.addStore(name);
+
+      notify({
+        title: 'Add Store in Progress',
+        msg: 'The confirmation is on the way',
+        type: 'info',
+      });
+      await tx1.wait();
+
+      notify({
+        title: 'Add Store Confirmed',
+        msg: 'The restaurant was created successfully',
+        type: 'info',
+      });
+    } catch (error) {
+      if (error.code === 'ACTION_REJECTED' || error.code === 4001) {
+        notify({
+          title: 'Add Store Error',
+          msg: 'Operation was cancelled by the user, please try again',
+          type: 'error',
+        });
+      } else console.log('error completing challenge', error);
+    }
+  };
+
+  const setStoreProducts = async (storeIndex, menu) => {
+    try {
+      const tx1 = await contract.setProductsStore(storeIndex, menu);
+
+      notify({
+        title: 'Add Product to the Store in Progress',
+        msg: 'The confirmation is on the way',
+        type: 'info',
+      });
+      await tx1.wait();
+
+      notify({
+        title: 'Add Product to the Store Confirmed',
+        msg: 'The restaurant was created successfully',
+        type: 'info',
+      });
+    } catch (error) {
+      if (error.code === 'ACTION_REJECTED' || error.code === 4001) {
+        notify({
+          title: 'Add Product to the Store Error',
+          msg: 'Operation was cancelled by the user, please try again',
+          type: 'error',
+        });
+      } else console.log('error completing challenge', error);
+    }
+  };
+
+  const buyMeals = async (restaurantIndex, meals) => {
+    try {
+      const tx1 = await contract.buyMeals(restaurantIndex, meals);
+
+      notify({
+        title: 'Buy Meals in Progress',
+        msg: 'The confirmation is on the way',
+        type: 'info',
+      });
+      await tx1.wait();
+
+      notify({
+        title: 'Buy Meals Confirmed',
+        msg: 'The restaurant was created successfully',
+        type: 'info',
+      });
+
+      setCredits(await contract.getCredits());
+    } catch (error) {
+      if (error.code === 'ACTION_REJECTED' || error.code === 4001) {
+        notify({
+          title: 'Buy Meals Error',
+          msg: 'Operation was cancelled by the user, please try again',
+          type: 'error',
+        });
+      } else {
+        notify({
+          title: 'Buy Meals Error',
+          msg: 'Check logs',
+          type: 'error',
+        });
+        console.log('error completing challenge', error);
+      }
+    }
+  };
+
+  const buyProducts = async (restaurantIndex, meals) => {
+    try {
+      const tx1 = await contract.buyProducts(restaurantIndex, meals);
+
+      notify({
+        title: 'Buy Products in Progress',
+        msg: 'The confirmation is on the way',
+        type: 'info',
+      });
+      await tx1.wait();
+
+      notify({
+        title: 'Buy Products Confirmed',
+        msg: 'The restaurant was created successfully',
+        type: 'info',
+      });
+
+      setCredits(await contract.getCredits());
+    } catch (error) {
+      if (error.code === 'ACTION_REJECTED' || error.code === 4001) {
+        notify({
+          title: 'Buy Products Error',
+          msg: 'Operation was cancelled by the user, please try again',
+          type: 'error',
+        });
+      } else {
+        notify({
+          title: 'Buy Products Error',
+          msg: 'Check logs',
+          type: 'error',
+        });
+        console.log('error completing challenge', error);
+      }
+    }
+  };
 
   return (
     <TreasureTrailsContext.Provider
@@ -313,14 +492,23 @@ export const TreasureTrailsProvider = ({ children }) => {
         activeChallenges,
         completeChallenge,
 
+        challengesCompleted,
+        getChallengesCompleted,
+
+        activities,
         getActivities,
+        buyMeals,
+        buyProducts,
 
         getMenuRestaurant,
         addRestaurant,
         setMenuRestaurant,
 
+        getIdsMenuRestaurant,
+        getIdsProductsStore,
+
         getStoreProducts,
-        addAStore,
+        addStore,
         setStoreProducts,
       }}
     >

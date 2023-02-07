@@ -12,8 +12,10 @@ export default function Home() {
     isOwner,
     addTicket,
     addRestaurant,
+    addStore,
     addActivity,
     setMenuRestaurant,
+    setStoreProducts,
   } = useContext(TreasureTrailsContext);
   const [openCamera, setOpenCamera] = useState(false);
   const [value, setValue] = useState('');
@@ -23,7 +25,7 @@ export default function Home() {
   useEffect(() => {
     if (data !== '') {
       const theticket = tickets.find((t, i) => i === parseInt(data));
-      console.log('theticket', theticket);
+
       if (theticket) buyTicket(data);
       setData('');
       setOpenCamera(false);
@@ -228,8 +230,74 @@ export default function Home() {
               <button onClick={() => setMenuRestaurant(1, [7, 8, 9])}>
                 ADD Menu Restaurant 2
               </button>
+
+              <button onClick={() => addStore('Comida Peruano')}>
+                ADD Store 1
+              </button>
+              <button onClick={() => addStore('Comida Chilena')}>
+                ADD Store 2
+              </button>
+              <button
+                onClick={() =>
+                  addActivity(
+                    'Marty McFly Keychain',
+                    '',
+                    0,
+                    20,
+                    0,
+                    ACTIVITY_TYPE.PRODUCT
+                  )
+                }
+              >
+                ADD Product 1
+              </button>
+
+              <button
+                onClick={() =>
+                  addActivity('BTTF Cup', '', 0, 10, 0, ACTIVITY_TYPE.PRODUCT)
+                }
+              >
+                ADD Product 2
+              </button>
+
+              <button
+                onClick={() =>
+                  addActivity(
+                    'BTTF Car Replica',
+                    '',
+                    0,
+                    50,
+                    0,
+                    ACTIVITY_TYPE.PRODUCT
+                  )
+                }
+              >
+                ADD Product 3
+              </button>
+              <button
+                onClick={() =>
+                  addActivity(
+                    'Mickey Mouse Cup',
+                    '',
+                    0,
+                    10,
+                    0,
+                    ACTIVITY_TYPE.PRODUCT
+                  )
+                }
+              >
+                ADD Product 4
+              </button>
+
+              <button onClick={() => setStoreProducts(0, [10, 11, 12])}>
+                ADD Products to Store 1
+              </button>
+              <button onClick={() => setStoreProducts(1, [13, 12])}>
+                ADD Products to Store 2
+              </button>
             </>
           )}
+
           <button onClick={() => setOpenCamera(true)}>OPEN</button>
           <button
             onClick={() => {
@@ -240,7 +308,7 @@ export default function Home() {
           </button>
         </div>
       </div>
-      <div className='m-4'>
+      <div className="m-4">
         <Input type="text" value={value} onChange={onChange} />
       </div>
       <div className="w-full p-20 bg-white ">
