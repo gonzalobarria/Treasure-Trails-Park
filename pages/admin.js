@@ -129,6 +129,20 @@ export default function Home() {
               >
                 ADD Challenge 4
               </button>
+              <button
+                onClick={() =>
+                  addActivity(
+                    'Challenge 5',
+                    'Escanea el castillo 5',
+                    200,
+                    0,
+                    date.setHours(date.getHours() + 4),
+                    ACTIVITY_TYPE.CHALLENGE
+                  )
+                }
+              >
+                ADD Challenge 5
+              </button>
 
               <button onClick={() => addRestaurant('Comida Peruano')}>
                 ADD Restaurant 1
@@ -294,6 +308,64 @@ export default function Home() {
               </button>
               <button onClick={() => setStoreProducts(1, [13, 12])}>
                 ADD Products to Store 2
+              </button>
+
+              <button
+                onClick={() =>
+                  addActivity(
+                    'Mega Rollercoaster',
+                    '',
+                    55,
+                    20,
+                    0,
+                    ACTIVITY_TYPE.ATTRACTION
+                  )
+                }
+              >
+                ADD Attraction 1
+              </button>
+              <button
+                onClick={() =>
+                  addActivity(
+                    'Haunted House',
+                    '',
+                    45,
+                    10,
+                    0,
+                    ACTIVITY_TYPE.ATTRACTION
+                  )
+                }
+              >
+                ADD Attraction 2
+              </button>
+
+              <button
+                onClick={() =>
+                  addActivity(
+                    'Ferris wheel',
+                    '',
+                    35,
+                    10,
+                    0,
+                    ACTIVITY_TYPE.ATTRACTION
+                  )
+                }
+              >
+                ADD Attraction 3
+              </button>
+              <button
+                onClick={() =>
+                  addActivity(
+                    'Dark ride',
+                    '',
+                    25,
+                    5,
+                    0,
+                    ACTIVITY_TYPE.ATTRACTION
+                  )
+                }
+              >
+                ADD Attraction 4
               </button>
             </>
           )}

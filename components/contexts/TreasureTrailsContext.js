@@ -282,9 +282,9 @@ export const TreasureTrailsProvider = ({ children }) => {
     }
   };
 
-  const getIdsProductsStore = async (storeIndex) => {
+  const getIdsProductsStore = async (attractionIndex) => {
     try {
-      const cc = await contract.getIdsProductsStore(storeIndex);
+      const cc = await contract.getIdsProductsStore(attractionIndex);
       return cc.map((c) => parseInt(c.toString()));
     } catch (error) {
       notify({
@@ -349,7 +349,6 @@ export const TreasureTrailsProvider = ({ children }) => {
     }
   };
 
-  const getStoreProducts = async () => {};
   const addStore = async (name) => {
     try {
       const tx1 = await contract.addStore(name);
@@ -377,9 +376,9 @@ export const TreasureTrailsProvider = ({ children }) => {
     }
   };
 
-  const setStoreProducts = async (storeIndex, menu) => {
+  const setStoreProducts = async (attractionIndex, menu) => {
     try {
-      const tx1 = await contract.setProductsStore(storeIndex, menu);
+      const tx1 = await contract.setProductsStore(attractionIndex, menu);
 
       notify({
         title: 'Add Product to the Store in Progress',
@@ -476,6 +475,86 @@ export const TreasureTrailsProvider = ({ children }) => {
     }
   };
 
+  const entranceAttraction = async (attractionIndex) => {
+    try {
+      const tx1 = await contract.entranceAttraction(attractionIndex);
+
+      notify({
+        title: 'Entering Attraction in Progress',
+        msg: 'The confirmation is on the way',
+        type: 'info',
+      });
+      await tx1.wait();
+
+      notify({
+        title: 'Entering Attraction Confirmed',
+        msg: 'You have entered to the attraction successfully',
+        type: 'info',
+      });
+    } catch (error) {
+      if (error.code === 'ACTION_REJECTED' || error.code === 4001) {
+        notify({
+          title: 'Entering Attraction Error',
+          msg: 'Operation was cancelled by the user, please try again',
+          type: 'error',
+        });
+      } else console.log('error completing challenge', error);
+    }
+  };
+
+  const exitAttraction = async (attractionIndex) => {
+    try {
+      const tx1 = await contract.exitAttraction(attractionIndex);
+
+      notify({
+        title: 'Exit Attraction in Progress',
+        msg: 'The confirmation is on the way',
+        type: 'info',
+      });
+      await tx1.wait();
+
+      notify({
+        title: 'Exit Attraction Confirmed',
+        msg: 'You went out from the attraction successfully',
+        type: 'info',
+      });
+    } catch (error) {
+      if (error.code === 'ACTION_REJECTED' || error.code === 4001) {
+        notify({
+          title: 'Exit Attraction Error',
+          msg: 'Operation was cancelled by the user, please try again',
+          type: 'error',
+        });
+      } else console.log('error completing challenge', error);
+    }
+  };
+
+  const getEntranceCount = async (attractionIndex) => {
+    try {
+      const counter = await contract.getEntranceCount(attractionIndex);
+      return parseInt(counter);
+    } catch (error) {
+      notify({
+        title: 'Get Entrance Count Error',
+        msg: 'Something wrong happening with the entrance count',
+        type: 'error',
+      });
+    }
+  };
+
+  const getExitCount = async (attractionIndex) => {
+    try {
+      const counter = await contract.getExitCount(attractionIndex);
+      return parseInt(counter);
+    } catch (error) {
+      notify({
+        title: 'Get Exit Count Error',
+        msg: 'Something wrong happening with the exit count',
+        type: 'error',
+      });
+    }
+  };
+
   return (
     <TreasureTrailsContext.Provider
       value={{
@@ -507,9 +586,13 @@ export const TreasureTrailsProvider = ({ children }) => {
         getIdsMenuRestaurant,
         getIdsProductsStore,
 
-        getStoreProducts,
         addStore,
         setStoreProducts,
+
+        entranceAttraction,
+        exitAttraction,
+        getEntranceCount,
+        getExitCount,
       }}
     >
       {children}

@@ -11,6 +11,7 @@ export default function Header() {
       { glosa: 'Challenges', url: '/challenges' },
       { glosa: 'Restaurant', url: '/restaurant' },
       { glosa: 'Store', url: '/store' },
+      { glosa: 'Attractions', url: '/attractions' },
     ],
   };
 

@@ -2,17 +2,24 @@ import { useContext, useEffect, useState } from 'react';
 import { TreasureTrailsContext } from '@/components/contexts/TreasureTrailsContext';
 import moment from 'moment';
 import Modal from '@/components/utils/Modal';
+import { ACTIVITY_TYPE } from '@/utils/enums';
 
 export default function ActiveChallenges() {
-  const { activeChallenges, completeChallenge, challengesCompleted } =
-    useContext(TreasureTrailsContext);
+  const {
+    activeChallenges,
+    completeChallenge,
+    challengesCompleted,
+    activities,
+  } = useContext(TreasureTrailsContext);
   const [activityIndex, setActivityIndex] = useState('');
   const [openCamera, setOpenCamera] = useState(false);
 
   useEffect(() => {
     if (activityIndex !== '') {
-      const theChallenge = activeChallenges.find(
-        (t, i) => i === parseInt(activityIndex)
+      const theChallenge = activities.find(
+        (t, i) =>
+          i === parseInt(activityIndex) &&
+          t.activityType === ACTIVITY_TYPE.CHALLENGE
       );
 
       if (theChallenge) completeChallenge(activityIndex);
@@ -20,7 +27,7 @@ export default function ActiveChallenges() {
       setActivityIndex('');
       setOpenCamera(false);
     }
-  }, [activityIndex, activeChallenges]);
+  }, [activityIndex, activities]);
 
   return (
     <>
@@ -44,12 +51,12 @@ export default function ActiveChallenges() {
           ) : (
             <>
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 ">
-                {activeChallenges.map((t, i) => {
+                {activities.map((t, i) => {
                   const expired = moment().isAfter(
                     moment(parseInt(t.expiresAt.toString()))
                   );
 
-                  if (t.isActive)
+                  if (t.isActive && t.activityType === ACTIVITY_TYPE.CHALLENGE)
                     return (
                       <div
                         key={t.name}
@@ -64,9 +71,6 @@ export default function ActiveChallenges() {
 
                             <div className="flex flex-row justify-between pb-2">
                               <p className="text-lg">
-                                {t.description.toString()}{' '}
-                                {t.description.toString()}{' '}
-                                {t.description.toString()}{' '}
                                 {t.description.toString()}
                               </p>
                             </div>
@@ -85,7 +89,7 @@ export default function ActiveChallenges() {
                                     className="text-white bg-gradient-to-br from-green-400 to-purple-600 hover:bg-gradient-to-bl focus:outline-none font-medium rounded-lg text-md px-4 py-1.5 text-center"
                                     onClick={() => setOpenCamera(true)}
                                   >
-                                    Do it!
+                                    Do it! {i}
                                   </button>
                                 ) : (
                                   <h3 className="font-bold">Done!</h3>
