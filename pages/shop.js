@@ -34,7 +34,7 @@ export default function Shop() {
       ) : (
         <div className="glass">
           <div className="pb-8 text-center">
-            <h1>Restaurant</h1>
+            <h1>Shop</h1>
           </div>
           {storeProducts.length === 0 ? (
             <div className="text-center">
@@ -42,7 +42,7 @@ export default function Shop() {
                 className="text-white bg-gradient-to-br from-green-400 to-purple-600 hover:bg-gradient-to-bl focus:outline-none font-medium rounded-lg text-md px-4 py-1.5 text-center"
                 onClick={() => setOpenCamera(true)}
               >
-                Scan Menu
+                Scan Shop
               </button>
             </div>
           ) : (

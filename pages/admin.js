@@ -1,7 +1,6 @@
 import { QRCode } from 'react-qrcode-logo';
 import { useContext, useEffect, useState } from 'react';
-import { AppContext } from '@/components/contexts/AppContext';
-import ConnectWallet from '@/components/web3/ConnectWallet';
+import Input from '@/components/utils/Input';
 import Scan from '@/components/utils/Scan';
 import { TreasureTrailsContext } from '@/components/contexts/TreasureTrailsContext';
 import Link from 'next/link';
@@ -17,6 +16,7 @@ export default function Home() {
     setMenuRestaurant,
   } = useContext(TreasureTrailsContext);
   const [openCamera, setOpenCamera] = useState(false);
+  const [value, setValue] = useState('');
 
   const [data, setData] = useState('');
 
@@ -31,6 +31,10 @@ export default function Home() {
   }, [data, tickets]);
 
   let date = new Date();
+
+  const onChange = (e) => {
+    setValue(e.target.value);
+  };
 
   return (
     <div className="pb-10">
@@ -236,9 +240,12 @@ export default function Home() {
           </button>
         </div>
       </div>
+      <div className='m-4'>
+        <Input type="text" value={value} onChange={onChange} />
+      </div>
       <div className="w-full p-20 bg-white ">
         <QRCode
-          value="1"
+          value={value}
           logoImage="https://www.gonzalobarria.com/images/logo-gb.jpg"
           eyeRadius={[
             {
