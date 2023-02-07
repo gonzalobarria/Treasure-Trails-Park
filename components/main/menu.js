@@ -6,25 +6,6 @@ import Router from 'next/router';
 export default function DropDownMenu({ options }) {
   const { titulo, menu } = options;
 
-  // return (
-  //   <div className="dropdown dropdown-end ">
-  //     <label tabIndex={0} className="m-1 btn ">
-  //       Click
-  //     </label>
-  //     <ul
-  //       tabIndex={0}
-  //       className="p-2 shadow dropdown-content menu bg-base-100 rounded-box w-52"
-  //     >
-  //       <li>
-  //         <a>Item 1</a>
-  //       </li>
-  //       <li>
-  //         <a>Item 2</a>
-  //       </li>
-  //     </ul>
-  //   </div>
-  // );
-
   return (
     <div className="relative z-50 px-5 pt-4 pb-2 transition-all duration-700 border-b-2 border-white lg:pt-3 hover:border-b-2 hover:border-purple-700">
       <Menu as="div" className="relative inline-block text-left">
