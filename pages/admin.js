@@ -32,22 +32,22 @@ export default function Home() {
               <button
                 onClick={() => addTicket('General Entrance', 0.01, 1, 50)}
               >
-                ADD Ticket "General Entrance"
+                ADD Ticket General Entrance
               </button>
               <button
                 onClick={() => addTicket('Silver Entrance', 0.02, 1, 110)}
               >
-                ADD Ticket "Silver Entrance"
+                ADD Ticket Silver Entrance
               </button>
 
               <button onClick={() => addTicket('Gold Entrance', 0.025, 1, 130)}>
-                ADD Ticket "Gold Entrance"
+                ADD Ticket Gold Entrance
               </button>
 
               <button
                 onClick={() => addTicket('Platimun Entrance', 0.03, 1, 250)}
               >
-                ADD Ticket "Platimun Entrance"
+                ADD Ticket Platimun Entrance
               </button>
               <button
                 onClick={() =>
@@ -61,7 +61,7 @@ export default function Home() {
                   )
                 }
               >
-                ADD Challenge "Go Crazy"
+                ADD Challenge Go Crazy
               </button>
               <button
                 onClick={() =>
@@ -75,7 +75,7 @@ export default function Home() {
                   )
                 }
               >
-                ADD Challenge "Where is Goofy?"
+                ADD Challenge Where is Goofy?
               </button>
               <button
                 onClick={() =>
@@ -89,7 +89,7 @@ export default function Home() {
                   )
                 }
               >
-                ADD Challenge "Scan the castle"
+                ADD Challenge Scan the castle
               </button>
               <button
                 onClick={() =>
@@ -103,7 +103,7 @@ export default function Home() {
                   )
                 }
               >
-                ADD Challenge "Photo with Mickey"
+                ADD Challenge Photo with Mickey
               </button>
               <button
                 onClick={() =>
@@ -117,14 +117,14 @@ export default function Home() {
                   )
                 }
               >
-                ADD Challenge "Under the Sea"
+                ADD Challenge Under the Sea
               </button>
 
               <button onClick={() => addRestaurant('Sunshine Seasons')}>
-                ADD Restaurant "Sunshine Seasons"
+                ADD Restaurant Sunshine Seasons
               </button>
               <button onClick={() => addRestaurant('Garden Grill Restaurant')}>
-                ADD Restaurant "Garden Grill Restaurant"
+                ADD Restaurant Garden Grill Restaurant
               </button>
 
               <button
@@ -222,10 +222,10 @@ export default function Home() {
               </button>
 
               <button onClick={() => addStore('Castle Store')}>
-                ADD Store "Castle Store"
+                ADD Store Castle Store
               </button>
               <button onClick={() => addStore('Shrek Gifts')}>
-                ADD Store "Shrek Gifts"
+                ADD Store Shrek Gifts
               </button>
               <button
                 onClick={() =>
@@ -305,7 +305,7 @@ export default function Home() {
                   )
                 }
               >
-                ADD Attraction "Mega Rollercoaster"
+                ADD Attraction Mega Rollercoaster
               </button>
               <button
                 onClick={() =>
@@ -319,7 +319,7 @@ export default function Home() {
                   )
                 }
               >
-                ADD Attraction "Haunted House"
+                ADD Attraction Haunted House
               </button>
 
               <button
@@ -334,7 +334,7 @@ export default function Home() {
                   )
                 }
               >
-                ADD Attraction "Ferris wheel"
+                ADD Attraction Ferris wheel
               </button>
               <button
                 onClick={() =>
@@ -348,7 +348,7 @@ export default function Home() {
                   )
                 }
               >
-                ADD Attraction "Dark ride"
+                ADD Attraction Dark ride
               </button>
               <button onClick={() => withdraw()}>Withdraw</button>
             </>
