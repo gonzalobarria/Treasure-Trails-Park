@@ -214,10 +214,10 @@ export default function Home() {
                 ADD Meal 6
               </button>
 
-              <button onClick={() => setMenuRestaurant(0, [4, 5, 6, 8])}>
+              <button onClick={() => setMenuRestaurant(0, [5, 6, 7, 9])}>
                 ADD Menu to Restaurant 1
               </button>
-              <button onClick={() => setMenuRestaurant(1, [7, 8, 9])}>
+              <button onClick={() => setMenuRestaurant(1, [8, 9, 10])}>
                 ADD Menu to Restaurant 2
               </button>
 
@@ -286,10 +286,10 @@ export default function Home() {
                 ADD Product 4
               </button>
 
-              <button onClick={() => setStoreProducts(0, [10, 11, 12])}>
+              <button onClick={() => setStoreProducts(0, [11, 12, 13])}>
                 ADD Products to Store 1
               </button>
-              <button onClick={() => setStoreProducts(1, [13, 12])}>
+              <button onClick={() => setStoreProducts(1, [14, 13])}>
                 ADD Products to Store 2
               </button>
 
