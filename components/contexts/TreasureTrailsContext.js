@@ -242,8 +242,14 @@ export const TreasureTrailsProvider = ({ children }) => {
   const completeChallenge = async (activityIndex) => {
     try {
       const tx1 = await contract?.completeChallenge(activityIndex);
+
+      notify({
+        title: 'Complete Challenge in Progress',
+        msg: 'The confirmation is on the way',
+        type: 'info',
+      });
+
       await tx1.wait();
-      setCredits(await contract.getCredits());
 
       notify({
         title: 'Challenge Completed Successfully',
@@ -251,6 +257,7 @@ export const TreasureTrailsProvider = ({ children }) => {
         type: 'info',
       });
 
+      setCredits(await contract.getCredits());
       setChallengesCompleted(await getChallengesCompleted());
     } catch (error) {
       if (error.code === 'ACTION_REJECTED' || error.code === 4001) {
