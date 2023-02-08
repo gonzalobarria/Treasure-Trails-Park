@@ -89,7 +89,7 @@ export default function Attractions() {
                           <p className="text-lg">{t.description.toString()}</p>
                         </div>
                       </div>
-                      <div className="">
+                      <div className="flex justify-center mb-4 ">
                         <QR value={i} />
                       </div>
                       <button

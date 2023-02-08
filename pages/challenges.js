@@ -87,7 +87,7 @@ export default function ActiveChallenges() {
                               {!expired &&
                                 (!challengesCompleted.includes(i) ? (
                                   <>
-                                    <div className="mb-4">
+                                    <div className="flex justify-center mb-4 ">
                                       <QR value={i} />
                                     </div>
                                     <button
@@ -98,7 +98,7 @@ export default function ActiveChallenges() {
                                     </button>
                                   </>
                                 ) : (
-                                  <h3 className="font-bold">Done!</h3>
+                                  <h3 className="font-bold"> Well Done!</h3>
                                 ))}
                             </div>
                           </div>
